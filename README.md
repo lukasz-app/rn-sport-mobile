@@ -1,7 +1,8 @@
 # rn-sport-mobile
 
 
-React native application for viewind and editing Health / Fit data. 
+React native application for viewing and editing Health / Fit data. 
+
 Uses react-native-sport, and acts as playground for it. 
 
 ### Getting started
