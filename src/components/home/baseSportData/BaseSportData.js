@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {
   View, Text,
 } from 'react-native';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import DeviceInfo from 'react-native-device-info';
 import { observable } from 'mobx';
 import styles from './styles';
 
+@inject('sportStore')
 @observer
 export default class BaseSportData extends Component {
   @observable baseInfo = [];
@@ -15,41 +16,36 @@ export default class BaseSportData extends Component {
     this.baseInfo = this.getBaseInfo();
   }
 
-  getBaseInfo = () => {
-    const {
-      getAPILevel, // android only
-      getBatteryLevel, // returns -1 on ios simulator
-      getBrand,
-      getBuildNumber,
-      getFirstInstallTime,
-      getManufacturer,
-      getModel,
-      getReadableVersion,
-      getSystemVersion,
-      getTimezone,
-      getVersion,
-    } = DeviceInfo;
-    const baseInfo = [];
-    baseInfo.push({ label: 'Imie: ', value: getBrand() });
-    baseInfo.push({ label: 'Nazwisko: ', value: getManufacturer() });
-    baseInfo.push({ label: 'Data ur: ', value: getModel() });
-    baseInfo.push({ label: 'Waga: ', value: getSystemVersion() });
-    baseInfo.push({ label: 'Wzrost: ', value: getAPILevel() });
-    // baseInfo.push({ label: 'BatteryLevel: ', value: getBatteryLevel() });
-    return baseInfo;
-  }
+  getBaseInfo = () => [
+    'Imie: ', 'Nazwisko: ', 'Data ur: ', 'Waga: ', 'Wzrost: ',
+  ]
 
 
   render() {
+    const {
+      sportStore,
+    } = this.props;
+    const {
+      name,
+      surname,
+      dateOfBirth,
+      weight,
+      height,
+    } = sportStore;
+    const values = [name, surname, dateOfBirth, weight, height];
+    console.log(' WALUES :::::', sportStore);
+    console.table(values);
     return (
       <View style={styles.container}>
-        {this.baseInfo.map(({ label, value }) => (
+        {this.baseInfo.map((label, index) => (
           <View key={label} style={styles.rowContainer}>
             <Text style={styles.textLabel}>
               {label}
             </Text>
+            <View style={styles.emptyFlex} />
+
             <Text style={styles.textValue}>
-              {value}
+              {values[index]}
             </Text>
           </View>
         ))}

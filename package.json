@@ -18,7 +18,11 @@
     "build-android-release": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release && open . && cd ../../../../",
     "install-android-release": "adb install android/app/build/outputs/apk/release/app-release.apk",
     "postinstall": "rndebugger-open",
-    "test": "jest"
+    "test": "jest",
+    "clone-health":"cd node_modules && rm -rf rn-apple-healthkit && git clone https://github.com/iteratorsmobile/rn-apple-healthkit.git && cd ..",
+    "clone-fit":"cd node_modules && rm -rf react-native-google-fit && git clone --single-branch --branch bodyDimensions  https://github.com/iteratorsmobile/react-native-google-fit.git && cd ..",
+    "clone-sport":"cd node_modules && rm -rf react-native-sport && git clone https://github.com/lukaszchopin/react-native-sport.git && cd ..",
+    "clone-all":"yarn clone-fit && yarn clone-health && yarn clone-sport"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -32,7 +36,10 @@
     "react-native-animatable": "1.3.0",
     "react-native-device-info": "^0.24.0",
     "react-native-i18n": "2.0.15",
-    "react-navigation": "2.12.1"
+    "react-navigation": "2.12.1",
+    "rn-apple-healthkit": "iteratorsmobile/rn-apple-healthkit",
+    "react-native-google-fit": "iteratorsmobile/react-native-google-fit#bodyDimensions",
+    "react-native-sport": "lukaszchopin/react-native-sport"
   },
   "devDependencies": {
     "babel-eslint": "8.2.5",
