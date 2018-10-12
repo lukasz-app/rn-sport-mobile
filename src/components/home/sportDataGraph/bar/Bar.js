@@ -22,29 +22,29 @@ const Bar = ({
       ]}
     >
       {
-              itemCount === 1 && [
-
+              itemCount === 1 && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                }}
+              >
                 <Text
                   style={[styles.pointsText, { fontSize: textSize }]}
                   key="count"
                 >
                   {value}
-                </Text>,
+                </Text>
 
                 <Text
                   style={styles.pktText}
                   key="unit"
                 >
                   {unit}
-                </Text>,
-              ]
+                </Text>
+
+              </View>
+              )
     }
-
-
-      {/* <View style={{
-        backgroundColor: color, width: iconSize, height: iconSize, marginVertical: 10,
-      }}
-      /> */}
       <View
         key="inner"
         style={

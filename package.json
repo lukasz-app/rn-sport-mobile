@@ -32,7 +32,10 @@
     "react-native-animatable": "1.3.0",
     "react-native-device-info": "^0.24.0",
     "react-native-i18n": "2.0.15",
-    "react-navigation": "2.12.1"
+    "react-navigation": "2.12.1",
+    "rn-apple-healthkit": "iteratorsmobile/rn-apple-healthkit",
+    "react-native-google-fit": "iteratorsmobile/react-native-google-fit#bodyDimensions",
+    "react-native-sport": "lukaszchopin/react-native-sport"
   },
   "devDependencies": {
     "babel-eslint": "8.2.5",

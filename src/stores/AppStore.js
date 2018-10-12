@@ -11,22 +11,12 @@ export default class AppStore {
   @observable count = 1;
 
   @action
-  add = ({ value = 1 }) => {
-    this.count = this.count + value;
-    if (this.count === 5) {
-      this.count = 1;
-      const {
-        navigationStore: {
-          navigate,
-        },
-      } = this.getStores();
-      navigate('Splash');
-    }
-  }
-
-  @action
-  subtract = ({ value = 1 }) => {
-    if (this.count === 1) return;
-    this.count = this.count - value;
+  initApp = () => {
+    const {
+      sportStore: {
+        initSport,
+      },
+    } = this.getStores();
+    initSport();
   }
 }
