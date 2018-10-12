@@ -25,6 +25,7 @@ componentDidMount = () => {
     },
   } = this.props;
   setTimeout(() => {
+    console.log('nav home');
     navigate('Home');
   }, 500);
 };

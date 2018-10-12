@@ -62,7 +62,8 @@ https://github.com/iteratorsmobile/rn-apple-healthkit,
 
 https://github.com/iteratorsmobile/react-native-google-fit,
 
-All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-sport` or `node_modules/react-native-sport` remember to save your changes before you `yarn` or `npm install`.
+All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-goole-fit` or `node_modules/rn-apple-healthkit` remember to save your changes before you `yarn` or `npm install`.
+
 
 To make to this process a little easier I have created a simple script to automatically git clone repositories after.
 You can call `yarn clone-health` to clone rn-apple-health-kit. 
@@ -74,5 +75,4 @@ Other possibilities:
 `yarn clone-sport`
 
 `yarn clone-all`
-
 

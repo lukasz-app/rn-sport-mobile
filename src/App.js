@@ -9,22 +9,20 @@ import withDevMenuTrigger from './enhancers/withDevMenuTrigger';
 
 @withDevMenuTrigger
 @withStoreProvider(RootStore)
-@inject('navigationStore')
+@inject('navigationStore', 'appStore')
 @observer
 export default class App extends Component {
   static propTypes = {
     navigationStore: PropTypes.shape(),
+    appStore: PropTypes.shape(),
   }
 
-  constructor(props) {
-    super(props);
-    YellowBox.ignoreWarnings([
-      'Warning: ReactNative.createElement',
-      'Warning: componentWillMount',
-      'Warning: componentWillReceiveProps',
-      'Warning: isMounted(...)',
-    ]);
-    console.disableYellowBox = true;
+
+  componentDidMount() {
+    const {
+      appStore: { initApp },
+    } = this.props;
+    initApp();
   }
 
 
