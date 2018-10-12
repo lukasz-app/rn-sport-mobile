@@ -23,28 +23,12 @@ export default class SportStore {
 
 @action
 initSport = () => {
-  // const {
-  //   hello,
-  // } = Sport;
-  Sport.hello().then((cos) => {
-    console.table(cos);
-    const [
-      {
-        value: heightValue,
-        startDate: heightStartDate,
-        endDate: heightEndDate,
-      },
-      {
-        value: weightValue,
-        startDate: weightStartDate,
-        endDate: weightEndDate,
-      },
-      {
-        value: birthValue,
-        age,
-      },
-      { value: sexValue },
-    ] = cos;
+  Sport.hello().then(([
+    { value: heightValue, ...otherHeightData },
+    { value: weightValue, ...otherWeightData },
+    { value: birthValue, age },
+    { value: sexValue },
+  ]) => {
     this.dateOfBirth = moment(birthValue).format('D-M-YY');
   }).catch((err) => {
     console.log('error');
