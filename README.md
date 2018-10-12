@@ -22,7 +22,7 @@ or
 
 You can do all of the react-native magic like :
 
-`$ react-native run-android`
+`$ react-native run-ios`
 
 or
 
@@ -51,4 +51,26 @@ now you can:
 // rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && yarn cache clean && yarn`
 
 and some more
+
+### CONTRIBUTING 
+
+This project is meant to help developing 3 different libraries:
+
+https://github.com/lukaszchopin/react-native-sport,
+https://github.com/iteratorsmobile/rn-apple-healthkit,
+https://github.com/iteratorsmobile/react-native-google-fit,
+
+All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-sport` or `node_modules/react-native-sport` remember to save your changes before you `yarn` or `npm install`.
+
+To make to this process a little easier I have created a simple script to automatically git clone repositories after.
+You can call `yarn clone-health` to clone rn-apple-health-kit. 
+
+Other possibilities: 
+
+`yarn clone-fit`
+
+`yarn clone-sport`
+
+`yarn clone-all`
+
 
