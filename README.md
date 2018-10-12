@@ -57,7 +57,9 @@ and some more
 This project is meant to help developing 3 different libraries:
 
 https://github.com/lukaszchopin/react-native-sport,
+
 https://github.com/iteratorsmobile/rn-apple-healthkit,
+
 https://github.com/iteratorsmobile/react-native-google-fit,
 
 All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-sport` or `node_modules/react-native-sport` remember to save your changes before you `yarn` or `npm install`.
