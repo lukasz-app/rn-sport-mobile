@@ -4,8 +4,8 @@ import MainRouter from './routers/MainRouter';
 
 
 export default createSwitchNavigator({
-  Splash,
   MainRouter,
+  Splash,
   Auth,
 }, {
 });

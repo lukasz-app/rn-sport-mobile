@@ -40,20 +40,4 @@ Button.propTypes = {
 };
 
 
-export default observer(({
-  label, onPress, style, labelStyle, active,
-}) => (
-  <TouchableOpacity
-    disabled={!active}
-    onPress={onPress}
-    style={[
-      styles.container,
-      active && styles.containerActive,
-      style,
-    ]}
-  >
-    <Text style={[styles.label, active && styles.labelActive, labelStyle]}>
-      {label}
-    </Text>
-  </TouchableOpacity>
-));
+export default observer(Button);

@@ -2,17 +2,6 @@
 // Splitting colors into separate objects.
 // base for debugging really, appColors for custom projects colors, and defaults
 // NOTE: discuss : many things
-const baseColors = {
-  transparent: '#00000000',
-  white: '#ffffff',
-  black: '#000000',
-  red: '#ff0000',
-  cyan: '#00ffff',
-  blue: '#0000ff',
-  yellow: '#ffff00',
-  green: '#00ff00',
-  pink: '#ff00ff',
-};
 const appColors = {
   dark: {
     a: '#05443f',
@@ -21,6 +10,11 @@ const appColors = {
     d: '#200544',
     e: '#3f0544',
     f: '#440529',
+    g: '#3E2C47',
+    h: '#59354C',
+    i: '#604556',
+    j: '#4B0B28',
+    k: '#05668d',
   },
   light: {
     a: '#f0f7f5',
@@ -29,6 +23,13 @@ const appColors = {
     d: '#f2f0f7',
     e: '#f5f0f7',
     f: '#f7f0f6',
+    g: '#ECEAD9',
+    j: '#f0f3bd',
+  },
+  live: {
+    a: '#EFBC23',
+    b: '#BCBF22',
+    c: '#CC463D',
   },
 };
 const defaults = {
@@ -49,6 +50,17 @@ const defaults = {
   GRAY: '#AAAAAA',
   SILVER: '#DDDDDD',
   WHITE: '#FFFFFF',
+};
+const baseColors = {
+  transparent: '#00000000',
+  white: '#ffffff',
+  black: '#000000',
+  red: '#ff0000',
+  cyan: '#00ffff',
+  blue: '#0000ff',
+  yellow: '#ffff00',
+  green: '#00ff00',
+  pink: '#ff00ff',
 };
 const colors = { baseColors, appColors, defaults };
 

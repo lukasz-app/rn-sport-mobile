@@ -27,7 +27,6 @@ export default class App extends Component {
     console.disableYellowBox = true;
   }
 
-
   render() {
     const {
       navigationStore: {
