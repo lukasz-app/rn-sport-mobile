@@ -48,15 +48,17 @@ and some more
 
 This project is meant to help developing 3 different libraries:
 
-https://github.com/lukaszchopin/react-native-sport,
+https://github.com/lukaszchopin/react-native-sport
 
-https://github.com/iteratorsmobile/rn-apple-healthkit,
+https://github.com/terrillo/rn-apple-healthkit
 
-https://github.com/iteratorsmobile/react-native-google-fit,
+https://github.com/StasDoskalenko/react-native-google-fit
 
 All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-goole-fit` or `node_modules/rn-apple-healthkit` remember to save your changes before you `yarn` or `npm install`.
 
 To make to this process a little easier I have created a simple script to automatically git clone repositories after.
+Commands below will clone my custom forks of above libraries.
+
 You can call `yarn clone-health` to clone rn-apple-health-kit.
 
 Other possibilities:
