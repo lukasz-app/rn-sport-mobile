@@ -1,4 +1,4 @@
-package com.boilerplatern.modules;
+package com.chopin.rnsport.modules;
 
 /**
  * Created by lukaszchludzinski on 30/08/2018.

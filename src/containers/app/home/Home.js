@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import styles from './styles';
-import BaseDeviceData from '../../../components/home/baseDeviceData/BaseDeviceData';
+import DeviceData from '../../../components/home/deviceData/DeviceData';
 import BaseSportData from '../../../components/home/baseSportData/BaseSportData';
 import PeriodSelector from '../../../components/home/periodSelector/PeriodSelector';
 import { Colors } from '../../../global/themes/index';
@@ -44,7 +44,7 @@ export default class Home extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <BaseDeviceData />
+        <DeviceData />
         <BaseSportData />
         <PeriodSelector />
       </ScrollView>

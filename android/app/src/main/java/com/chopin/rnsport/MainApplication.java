@@ -1,9 +1,9 @@
-package com.boilerplatern;
+package com.chopin.rnsport;
 
 import android.app.Application;
 import android.util.Log;
 
-import com.boilerplatern.modules.DevMenuPackage;
+import com.chopin.rnsport.modules.DevMenuPackage;
 import com.facebook.react.ReactApplication;
 import com.reactnative.googlefit.GoogleFitPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;

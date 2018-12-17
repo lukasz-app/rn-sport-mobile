@@ -1,4 +1,4 @@
-const Utils = {};
+import { Alert } from 'react-native';
 
 const errorCode = (error) => {
   if (error.response && error.response.status) {
@@ -32,12 +32,16 @@ const handleError = (error) => {
 };
 
 const showAlert = (alert) => {
-  // Alert.alert('', error, [{ text: 'OK' }]);
-  Utils.showAlert('', alert);
+  Alert.alert(alert);
 };
 
 const showErrorAlert = (error) => {
-  Utils.showErrorAlert(handleError(error));
-  // showAlert(handleError(error));
+  showAlert('Error', handleError(error));
 };
-export { Utils, errorCode, handleError, showAlert, showErrorAlert };
+
+export default {
+  errorCode,
+  handleError,
+  showAlert,
+  showErrorAlert,
+};

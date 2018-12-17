@@ -98,7 +98,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.boilerplatern"
+        applicationId "com.chopin.rnsport"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -150,3 +150,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+//apply plugin: 'com.google.gms.google-services'

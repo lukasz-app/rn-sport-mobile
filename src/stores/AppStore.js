@@ -1,22 +1,23 @@
-import remotedev from 'mobx-remotedev/lib/dev';
 import { action, computed, observable } from 'mobx';
-
 
 export default class AppStore {
   constructor(getStores) {
     this.getStores = getStores;
   }
 
-  // @remotedev({ name: 'Count' })
-  @observable count = 1;
-
   @action
-  initApp = () => {
+  appDidMount = () => {
     const {
-      sportStore: {
-        initSport,
-      },
+      sportStore: { initSport },
     } = this.getStores();
     initSport();
-  }
+  };
+
+  @action
+  appWillUnmount = () => {
+    const {
+      sportStore: { removeSportListeners },
+    } = this.getStores();
+    removeSportListeners();
+  };
 }

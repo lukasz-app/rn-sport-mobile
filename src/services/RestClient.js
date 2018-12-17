@@ -1,18 +1,18 @@
 import axios from 'axios';
 
 
-const getEndpointFromConf = ({url,baseURL})=>url.replace(baseURL, '');
+const getEndpointFromConf = ({ url, baseURL }) => url.replace(baseURL, '');
 
-const stdInterceptor = (reqOrRes)=>{
-  if(reqOrRes.url && reqOrRes.baseURL){
-    // request 
+const stdInterceptor = (reqOrRes) => {
+  if (reqOrRes.url && reqOrRes.baseURL) {
+    // request
     console.log(`Starting Request: ${getEndpointFromConf(reqOrRes)} \n`, reqOrRes);
-  } else{
-    //response
+  } else {
+    // response
     console.log(`Response: ${getEndpointFromConf(reqOrRes.config)} \n`, reqOrRes);
   }
   return reqOrRes;
-}
+};
 
 const instance = axios.create({
   baseURL: 'https://apiurl.com',

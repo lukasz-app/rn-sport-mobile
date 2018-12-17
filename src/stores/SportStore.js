@@ -1,106 +1,118 @@
 import { action, computed, observable } from 'mobx';
 import moment from 'moment';
 import Sport from 'react-native-sport';
-import { height } from 'window-size';
-
 
 export default class SportStore {
   constructor(getStores) {
     this.getStores = getStores;
   }
 
-@observable selectedYear = moment().year();
+  @observable
+  dateOfBirth = '';
 
-@observable selectedMonth = moment().month();
+  @observable
+  age = '';
 
-@observable selectedWeek = moment().week();
+  @observable
+  currentHeight = -1;
 
-@observable selectedDay = moment().day();
+  @observable
+  currentWeight = -1;
 
-@observable selectionType = 'day';
+  @observable
+  sex = -1;
 
-@observable dateOfBirth = '';
+  @observable
+  distanceForPeriod = [];
 
-@action
-initSport = () => {
-  Sport.hello().then(([
-    { value: heightValue, ...otherHeightData },
-    { value: weightValue, ...otherWeightData },
-    { value: birthValue, age },
-    { value: sexValue },
-  ]) => {
-    this.dateOfBirth = moment(birthValue).format('D-M-YY');
-  }).catch((err) => {
-    console.log('error');
-  });
-}
+  @observable
+  stepsForPeriod = [];
 
+  @observable
+  energyForPeriod = [];
 
-@action
-selectPeriod = ({
-  type, date, loadDays, loadWeeks,
-}) => {
-  if (type === 'day') {
-    this.selectionType = 'day';
-    this.selectedDay = moment(date).day();
-  } else if (type === 'week') {
-    this.selectionType = 'week';
-    this.selectedWeek = moment(date).week();
-    this.selectedDay = null;
-    if (loadDays) {
-      loadDays();
-    }
-  } else if (type === 'month') {
-    this.selectionType = 'month';
-    this.selectedDay = null;
-    this.selectedWeek = null;
-    this.selectedMonth = moment(date).month();
-    this.selectedYear = moment(date).year();
-    if (loadWeeks) {
-      loadWeeks();
-    }
-    if (loadDays) {
-      loadDays();
-    }
-  }
-}
-
-@computed
-get dataForPeriod() {
-  const newDataForPeriod = [];
-  let itemCount = 0;
-  if (this.selectionType === 'day') {
-    itemCount = 1;
-  } else if (this.selectionType === 'week') {
-    itemCount = 7;
-  } else {
-    const proper = moment().month(this.selectedMonth).year(this.selectedYear);
-    const startOfPeriod = moment(proper).startOf('month').startOf('week');
-    const endOfPeriod = moment(proper).endOf('month').endOf('week');
-    itemCount = endOfPeriod.diff(startOfPeriod, 'week') + 1;
-    console.log('get d f  count', itemCount);
-  }
-  for (let i = 0; i < itemCount; i++) {
-    newDataForPeriod.push({
-      steps: Math.round(Math.random() * 14000 * itemCount),
-      distance: Math.round(Math.random() * 10 * itemCount),
-      energy: Math.round(Math.random() * 3000 * itemCount),
-      key: i,
-      itemCount,
-      selectedDay: this.selectedDay,
-      selectedMonth: this.selectedMonth,
-      selectedWeek: this.selectedWeek,
-      selectedYear: this.selectedYear,
-      selectionType: this.selectionType,
-    });
-  }
-  console.log('get d f  ', newDataForPeriod);
-  return newDataForPeriod;
-}
+  @observable
+  combinedData = [];
 
   @action
-  subtract = ({ value = 1 }) => {
-    if (this.count === 1) return;
-    this.count = this.count - value;
+  initSport = () => {
+    Sport.hello()
+      .then((status) => {
+        console.log('Sport connection status :', status);
+        this.getBaseData();
+      })
+      .catch((err) => {
+        console.log('error initializing ', err);
+      });
+  };
+
+  @action
+  removeSportListeners = () => Sport.removeAllListeners();
+
+  @action
+  getBaseData = () => {
+    Sport.getBaseData().then((baseDataArray) => {
+      console.log('Sport Stpre : after sport init');
+      console.table(baseDataArray);
+      const [
+        { value: heightValue, ...otherHeightData },
+        { value: weightValue, ...otherWeightData },
+        { value: birthValue, age },
+        { value: sexValue },
+      ] = baseDataArray;
+      this.dateOfBirth = moment(birthValue);
+      this.currentHeight = heightValue;
+      this.currentWeight = weightValue;
+      this.sex = sexValue;
+      this.age = age;
+    });
+  };
+
+  @computed
+  get data() {
+    const tab = [];
+    for (let i = 0; i < this.distanceForPeriod.length; i++) {
+      tab.push({
+        distance: this.distanceForPeriod[i],
+        steps: this.stepsForPeriod[i],
+        energy: this.energyForPeriod[i],
+      });
+    }
+    return tab;
   }
+
+  @action
+  getDataForPeriod = (startOfPeriod, type) => {
+    const garnularity = 'day';
+    const newDataForPeriod = [];
+    const start = moment(startOfPeriod).startOf(type);
+    const end = moment(startOfPeriod).endOf(type);
+
+    Sport.getData({
+      types: [Sport.dataTypes.distance, Sport.dataTypes.steps, Sport.dataTypes.energy],
+      startOfPeriod: start,
+      endOfPeriod: end,
+      garnularity,
+    })
+      .then((result) => {
+        const [distanceArray, stepsArray, energyArray] = result;
+        this.distanceForPeriod = distanceArray;
+        this.stepsForPeriod = stepsArray;
+        this.energyForPeriod = energyArray;
+        const combinedData = [];
+        for (let i = 0; i < distanceArray.length; i++) {
+          combinedData.push({
+            distance: distanceArray[i],
+            steps: stepsArray[i],
+            energy: energyArray[i],
+            date: distanceArray[i].date,
+          });
+        }
+
+        this.combinedData = combinedData;
+      })
+      .catch((err) => {
+        console.log('get data for period ERROR:  ', err);
+      });
+  };
 }

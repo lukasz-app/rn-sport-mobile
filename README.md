@@ -1,9 +1,8 @@
 # rn-sport-mobile
 
+React native application for viewing and editing Health / Fit data.
 
-React native application for viewing and editing Health / Fit data. 
-
-Uses react-native-sport, and acts as playground for it. 
+Uses react-native-sport, and acts as playground for it.
 
 ### Getting started
 
@@ -13,11 +12,9 @@ First you should fork, or clone this repository
 
 After that install npm depedencies:
 
-`$ yarn` 
+`$ yarn`
 or
 `$ npm install`
-
-
 
 ### RUNNING
 
@@ -33,27 +30,21 @@ and
 
 `$ react-native start`
 
-
-Although I did include some custom scripts to make develioping two platform application easier. 
+Although I did include some custom scripts to make develioping two platform application easier.
 
 ### BETTER RUNNING
 
-
-
 now you can:
 
-`$ yarn run-both
-// starts 2 packagers on 8081 and 8082 and builds and installs application on connected android device and on connected iOS device `
+`$ yarn run-both // starts 2 packagers on 8081 and 8082. Builds and installs application on connected android device and on connected iOS device`
 
-`$ yarn run-ios-device
-// starts packager and installs on iOS device. `
+`$ yarn run-ios-device // starts packager and installs on iOS device.`
 
-`$ yarn fresh-install 
-// rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && yarn cache clean && yarn`
+`$ yarn fresh-install // rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/* && rm -rf node_modules/ && yarn cache clean && yarn`
 
 and some more
 
-### CONTRIBUTING 
+### CONTRIBUTING
 
 This project is meant to help developing 3 different libraries:
 
@@ -65,15 +56,13 @@ https://github.com/iteratorsmobile/react-native-google-fit,
 
 All of them are dependencies of this project. If you edit sources of `node_modules/react-native-sport` , `node_modules/react-native-goole-fit` or `node_modules/rn-apple-healthkit` remember to save your changes before you `yarn` or `npm install`.
 
-
 To make to this process a little easier I have created a simple script to automatically git clone repositories after.
-You can call `yarn clone-health` to clone rn-apple-health-kit. 
+You can call `yarn clone-health` to clone rn-apple-health-kit.
 
-Other possibilities: 
+Other possibilities:
 
 `yarn clone-fit`
 
 `yarn clone-sport`
 
 `yarn clone-all`
-

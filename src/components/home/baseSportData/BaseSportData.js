@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View, Text,
 } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import DeviceInfo from 'react-native-device-info';
 import { observable } from 'mobx';
+import moment from 'moment';
 import styles from './styles';
 
 @inject('sportStore')
 @observer
 export default class BaseSportData extends Component {
-  @observable baseInfo = [];
-
-  componentDidMount() {
-    this.baseInfo = this.getBaseInfo();
+  static propTypes = {
+    sportStore: PropTypes.shape(),
   }
 
-  getBaseInfo = () => [
-    'Imie: ', 'Nazwisko: ', 'Data ur: ', 'Waga: ', 'Wzrost: ',
-  ]
-
+  baseInfo = ['Imie: ', 'Nazwisko: ', 'Data ur: ', 'Waga: ', 'Wzrost: ', 'Sex'];
 
   render() {
     const {
-      sportStore,
+      sportStore: {
+        name,
+        surname,
+        dateOfBirth,
+        currentWeight,
+        currentHeight,
+        sex,
+      },
     } = this.props;
-    const {
-      name,
-      surname,
-      dateOfBirth,
-      weight,
-      height,
-    } = sportStore;
-    const values = [name, surname, dateOfBirth, weight, height];
-    console.log(' WALUES :::::', sportStore);
-    console.table(values);
+    const values = [
+      name, surname, moment(dateOfBirth).format('D M Y'), currentWeight, currentHeight, sex,
+    ];
     return (
       <View style={styles.container}>
         {this.baseInfo.map((label, index) => (

@@ -20,9 +20,16 @@ export default class App extends Component {
 
   componentDidMount() {
     const {
-      appStore: { initApp },
+      appStore: { appDidMount },
     } = this.props;
-    initApp();
+    appDidMount();
+  }
+
+  componentWillUnmount() {
+    const {
+      appStore: { appWillUnmount },
+    } = this.props;
+    appWillUnmount();
   }
 
 

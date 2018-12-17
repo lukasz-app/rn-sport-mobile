@@ -13,117 +13,26 @@ import { Metrics, Colors } from '../../../global/themes';
 import Chip from '../../util/chip';
 import SportGraph from '../sportDataGraph/SportDataGraph';
 
-@inject('sportStore')
+@inject('periodSelectorStore', 'sportStore')
 @observer
 export default class PeriodSelector extends Component {
-@observable
-monthsChips = []
-
-@observable
-weeksChips = [];
-
-@observable
-dayChips = [];
-
-componentDidMount() {
-  moment.locale('pl');
-  this.loadMoreMonths();
-  this.loadWeeks();
-  this.loadDays();
-}
-
-
-@action
-loadMoreMonths = () => {
-  const newChips = [];
-  const lastKnownDate = (this.monthsChips.length && moment(this.monthsChips[this.monthsChips.length - 1].date))
-  || moment().add(1, 'month')
-    .startOf('month');
-  for (let i = 0; i < 12; i++) {
-    const startOfThePeriod = moment(lastKnownDate).subtract(i + 1, 'month');
-    const text = `${startOfThePeriod.format('MMMM YYYY')}`;
-    newChips.push({
-      date: moment(startOfThePeriod),
-      text,
-      type: 'month',
-    });
-  }
-  this.monthsChips = this.monthsChips.concat(newChips);
-}
-
-@action
-loadWeeks = () => {
-  console.log('load weeks', this.props);
-  const {
-    sportStore: {
-      selectedDay, selectedWeek, selectedMonth, selectedYear, selectionType,
-    },
-  } = this.props;
-  const newChips = [];
-  const iterator = moment().year(selectedYear).month(selectedMonth).startOf('month');
-
-  while (
-    (moment(iterator).startOf('week').month() <= selectedMonth)
-    && moment(iterator).startOf('week').year() <= selectedYear) {
-    const now = moment(iterator);
-
-    const startOfTheWeek = moment(now).startOf('week');
-    const endOfTheWeek = moment(now).endOf('week');
-    const text = `${
-      startOfTheWeek.format('D')
-    }${
-      startOfTheWeek.month() < selectedMonth
-        ? startOfTheWeek.format('.M')
-        : ''
-    }${
-      !startOfTheWeek.isSame(endOfTheWeek, 'year')
-        ? startOfTheWeek.format('.YY') : ''
-    }${
-      endOfTheWeek.format(' - D')
-    }${
-      endOfTheWeek.month() > selectedMonth
-        ? endOfTheWeek.format('.M')
-        : ''
-    }`;
-    newChips.push({
-      date: moment(startOfTheWeek),
-      text,
-      type: 'week',
-    });
-    iterator.add(1, 'week');
-  }
-  this.weeksChips = newChips;
-}
-
-@action
-loadDays = () => {
-  const {
-    sportStore: {
-      selectedDay, selectedWeek, selectedMonth, selectedYear, selectionType,
-    },
-  } = this.props;
-  const newChips = [];
-  const iterator = moment().year(selectedYear).month(selectedMonth);
-  if (selectedWeek) {
-    iterator.week(selectedWeek).startOf('week');
-  } else {
-    iterator.startOf('month').startOf('week');
-  }
-  for (let index = 0; index < 7; index++) {
-    iterator.add(1, 'day');
-    newChips.push({
-      date: moment(iterator),
-      text: moment(iterator).format('dd'),
-      type: 'day',
-    });
+  componentDidMount() {
+    moment.locale('pl');
+    const {
+      periodSelectorStore: {
+        loadMoreMonths, loadWeeks, loadDays,
+      },
+      sportStore: { getDataForPeriod },
+    } = this.props;
+    loadMoreMonths();
+    loadWeeks();
+    loadDays();
   }
 
-  this.dayChips = newChips;
-}
 
 renderItem = ({ item: { text, date, type }, index }) => {
   const {
-    sportStore: {
+    periodSelectorStore: {
       selectedDay, selectedWeek, selectedMonth, selectedYear, selectPeriod, selectionType,
     },
   } = this.props;
@@ -165,7 +74,7 @@ renderItem = ({ item: { text, date, type }, index }) => {
       id={index}
       text={text}
       onPress={() => selectPeriod({
-        type, date, loadDays: this.loadDays, loadWeeks: this.loadWeeks,
+        type, date,
       })}
 
       {
@@ -178,8 +87,8 @@ renderItem = ({ item: { text, date, type }, index }) => {
 
 render() {
   const {
-    sportStore: {
-      selectedDay, selectedWeek, selectedMonth, selectedYear, selectPeriod, selectionType,
+    periodSelectorStore: {
+      selectedMonth, selectionType, loadMoreMonths, monthsChips, weeksChips, dayChips,
     },
   } = this.props;
   return (
@@ -198,10 +107,10 @@ render() {
         contentContainerStyle={{
           // backgroundColor: `${Colors.appColors.light.j}66`,
         }}
-        data={this.monthsChips}
+        data={monthsChips}
         horizontal
         renderItem={this.renderItem}
-        onEndReached={this.loadMoreMonths}
+        onEndReached={loadMoreMonths}
         extraData={selectedMonth}
       />
       <View
@@ -213,7 +122,7 @@ render() {
             { borderColor: Colors.appColors.dark.k, borderBottomWidth: 3 },
           ]}
         >
-          { this.weeksChips.map(({ date, text, type }, index) => (
+          { weeksChips.map(({ date, text, type }, index) => (
             <View
               key={`${date.format('DD MM YY')}`}
               style={{
@@ -236,7 +145,7 @@ render() {
         >
           {
           (selectionType === 'day' || selectionType === 'week')
-          && this.dayChips.map(({ date, text, type }) => (
+          && dayChips.map(({ date, text, type }) => (
             <View
               key={`${date.format('dd')}`}
               style={{

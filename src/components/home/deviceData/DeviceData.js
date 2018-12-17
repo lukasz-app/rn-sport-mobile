@@ -10,7 +10,7 @@ import moment from 'moment';
 import styles from './styles';
 
 @observer
-export default class BaseDeviceData extends Component {
+export default class DeviceData extends Component {
   @observable baseInfo = [];
 
   componentDidMount() {

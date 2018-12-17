@@ -12,7 +12,7 @@ const Bar = ({
   const iconSize = Metrics.screenWidth / (itemCount * 8);
   const textSize = itemCount === 1 ? Metrics.normalize(17) : Metrics.normalize(70 / itemCount);
   const greyBarHeight = Math.round((value * maxHeight) / maxValue);
-  console.log('render BAR , item: ', maxValue, maxHeight, value, greyBarHeight);
+
   return (
 
     <View

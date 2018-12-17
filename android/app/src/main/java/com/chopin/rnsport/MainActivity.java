@@ -1,4 +1,4 @@
-package com.boilerplatern;
+package com.chopin.rnsport;
 
 import android.os.Bundle;
 import android.util.Log;
