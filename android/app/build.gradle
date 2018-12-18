@@ -94,13 +94,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
 
     defaultConfig {
         applicationId "com.chopin.rnsport"
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion 18
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         ndk {
@@ -137,11 +137,12 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-google-fit')
-    compile project(':react-native-device-info')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:23.0.1"
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile project(':react-native-devmenu-trigger')
+    implementation project(':react-native-google-fit')
+    implementation project(':react-native-device-info')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.android.support:appcompat-v7:$project.supportLibVersion"
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 }
 
 // Run this once to be able to run the application with BUCK
